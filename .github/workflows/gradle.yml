@@ -16,6 +16,15 @@ jobs:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: test
+        run: |
+          echo "${{ needs.build.outputs.ecr_registry }}"
+          echo "${{ needs.build.outputs.image_tag }}"
+
   deploy: 
     needs: build
     uses: seul394/cicd/.github/workflows/deploy.yaml@main
