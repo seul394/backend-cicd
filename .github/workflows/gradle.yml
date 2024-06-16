@@ -22,7 +22,6 @@ jobs:
     steps:
       - name: test
         run: |
-          echo "${{ needs.build.outputs.ecr_registry }}"
           echo "${{ needs.build.outputs.image_tag }}"
 
   deploy: 
@@ -30,6 +29,5 @@ jobs:
     uses: seul394/cicd/.github/workflows/deploy.yaml@main
     with:
       project: backend
-      ecr_registry: ${{ needs.build.outputs.ecr_registry }}
       ecr_repository: blog-backend-${{ github.ref_name }}
       image_tag: ${{ needs.build.outputs.image_tag }}
